@@ -17,3 +17,5 @@ palindromes = []
 end
 
 p palindromes.max
+
+# Time: 0m1.656s

@@ -18,3 +18,5 @@ while terms.last <= MAX
 end
 
 puts sum
+
+# Time: 0m1.331s

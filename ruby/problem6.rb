@@ -11,3 +11,5 @@ square_of_sum = range.map {|number| number }.sum ** 2
 sum_of_squares_hundred_natural_numbers = range.map {|number| number ** 2 }.sum
 
 p square_of_sum - sum_of_squares_hundred_natural_numbers
+
+# Time: 0m1.345s
