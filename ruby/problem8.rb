@@ -33,7 +33,7 @@ while numbers.count >= 13
   multipliers = numbers.take(13)
   
   product = multipliers.inject(:*)
-  largest_product =product if product > largest_product
+  largest_product = product if product > largest_product
   
   numbers.shift
 end
