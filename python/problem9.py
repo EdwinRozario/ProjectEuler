@@ -25,4 +25,4 @@ for a in range(1000):
             print(a * b * c)
             sys.exit()
 
-# Time: 0m36.391s            
+# Time: 0m36.391s
