@@ -14,21 +14,35 @@
 #           root if root == root.to_i
 #         end.compact
 
-roots = (1..1000).to_a
+# roots = (1..1000).to_a
 
 # http://chriscontinanza.com/2010/10/29/Array.html
-triplets = roots.combination(3).to_a
+# triplets = roots.combination(3).to_a
 
-triplets.each do |triplet|
-  a, b, c = triplet.sort
+# triplets.each do |triplet|
+#   a, b, c = triplet.sort
 
 
-  if (a ** 2 + b ** 2 == c ** 2) && (a + b + c == 1000)
-    p triplet.inject(:*)
+#   if (a ** 2 + b ** 2 == c ** 2) && (a + b + c == 1000)
+#     p triplet.inject(:*)
 
-    exit
+#     exit
+#   end
+# end
+
+
+# Brute force
+
+(0..1000).each do |a|
+  (0..1000).each do |b|
+    (0..1000).each do |c|
+      if (a < b) && (b < c) && (a ** 2 + b ** 2 == c ** 2) && (a + b + c == 1000)
+        p a * b * c
+
+        exit
+      end
+    end
   end
 end
 
-
-# Time: 
+# Time: 0m23.718s
