@@ -7,7 +7,7 @@ Just having fun with Euler
 
 | Problem  | Ruby       | Python     |
 | ---------|:----------:|-----------:|
-| 1        | 0m1.381s   |            |
+| 1        | 0m1.381s   | 0m0.037s   |
 | 2        | 0m1.331s   |            |
 | 3        | 0m8.518s   |            |
 | 4        | 0m1.656s   |            |
