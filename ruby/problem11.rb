@@ -28,7 +28,7 @@
 
 require 'pry'
 
-matrix = [[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
+MATRIX = [[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
           [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
           [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],
           [52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],
@@ -49,49 +49,86 @@ matrix = [[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 
           [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
           [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]]
 
-
-def up?(x, y)
+def up?(x)
   x - 3 >= 0
 end
 
-def down?(x, y)
+def down?(x)
   x + 3 <= 19
 end
 
-def left?(x, y)
+def left?(y)
   y - 3 >= 0
 end
 
-def right?(x, y)
+def right?(y)
   y + 3 <= 19
 end
 
 def up(x, y)
+  (x-3..x).map {|i| MATRIX[i][y] }
 end
 
 def down(x, y)
+  (x..x+3).map {|i| MATRIX[i][y] }
 end
 
 def left(x, y)
+  (y-3..y).map {|i| MATRIX[x][i] }
 end
 
 def right(x, y)
+  (y..y+3).map {|i| MATRIX[x][i] }
 end
 
+def up_left(x, y)
+  x += 1
+  y += 1
 
-matrix.each_with_index do |row, x|
+  4.times.map { MATRIX[x-=1][y-=1] }
+end
+
+def up_right(x, y)
+  x += 1
+  y -= 1
+
+  4.times.map { MATRIX[x-=1][y+=1] }
+end
+
+def down_left(x, y)
+  x -= 1
+  y += 1
+
+  4.times.map { MATRIX[x+=1][y-=1] }
+end
+
+def down_right(x, y)
+  x -= 1
+  y -= 1
+
+  4.times.map { MATRIX[x+=1][y+=1] }
+end
+
+max_product = 0
+
+MATRIX.each_with_index do |row, x|
   row.each_with_index do |column, y|
-    # p "[#{x}][#{y}]" if left?(x, y) && right?(x, y)
-    # p "[#{x}][#{y}]" if up?(x, y) && down?(x, y)
+    products = []
+  
+    products << up(x, y).inject(:*) if up?(x)
+    products << down(x, y).inject(:*) if down?(x)
+    products << left(x, y).inject(:*) if left?(y)
+    products << right(x, y).inject(:*) if right?(y)
+
+    products << up_left(x, y).inject(:*) if up?(x) && left?(y)
+    products << up_right(x, y).inject(:*) if up?(x) && right?(y)
+    products << down_left(x, y).inject(:*) if down?(x) && left?(y)
+    products << down_right(x, y).inject(:*) if down?(x) && right?(y)
+
+    max_product = products.max if products.max > max_product
   end
 end
 
+p max_product
 
-
-
-
-
-
-
-
-# Time: 
+# Time: 0m2.573s
