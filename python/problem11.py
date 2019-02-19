@@ -26,6 +26,8 @@
 # The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 # What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
 
+from numpy import prod
+
 MATRIX = [[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
           [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
           [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],
@@ -47,86 +49,92 @@ MATRIX = [[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 
           [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
           [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]]
 
-def up?(x)
-  x - 3 >= 0
-end
+def is_up(x):
+  return(x - 3 >= 0)
 
-def down?(x)
-  x + 3 <= 19
-end
+def is_down(x):
+  return(x + 3 <= 19)
 
-def left?(y)
-  y - 3 >= 0
-end
+def is_left(y):
+  return(y - 3 >= 0)
 
-def right?(y)
-  y + 3 <= 19
-end
+def is_right(y):
+  return(y + 3 <= 19)
 
-def up(x, y)
-  (x-3..x).map {|i| MATRIX[i][y] }
-end
+def up(x, y):
+  return [MATRIX[i][y] for i in range(x-3, x)]
 
-def down(x, y)
-  (x..x+3).map {|i| MATRIX[i][y] }
-end
+def down(x, y):
+  return [MATRIX[i][y] for i in range(x, x+3)]
 
-def left(x, y)
-  (y-3..y).map {|i| MATRIX[x][i] }
-end
+def left(x, y):
+  return [MATRIX[x][i] for i in range(y-3, y)]
 
-def right(x, y)
-  (y..y+3).map {|i| MATRIX[x][i] }
-end
+def right(x, y):
+  return [MATRIX[x][i] for i in range(y, y+3)]
 
-def up_left(x, y)
+def up_left(x, y):
   x += 1
   y += 1
+  result = []
 
-  4.times.map { MATRIX[x-=1][y-=1] }
-end
+  for _ in range(4):
+    x-=1; y-=1
+    result.append(MATRIX[x][y])
 
-def up_right(x, y)
+  return result
+
+def up_right(x, y):
   x += 1
   y -= 1
+  result = []
 
-  4.times.map { MATRIX[x-=1][y+=1] }
-end
+  for _ in range(4):
+    x-=1; y+=1
+    result.append(MATRIX[x][y])
 
-def down_left(x, y)
+  return result
+
+def down_left(x, y):
   x -= 1
   y += 1
+  result = []
 
-  4.times.map { MATRIX[x+=1][y-=1] }
-end
+  for _ in range(4):
+    x+=1; y-=1
+    result.append(MATRIX[x][y])
 
-def down_right(x, y)
+  return result
+
+def down_right(x, y):
   x -= 1
   y -= 1
+  result = []
 
-  4.times.map { MATRIX[x+=1][y+=1] }
-end
+  for _ in range(4):
+    x+=1; y+=1
+    result.append(MATRIX[x][y])
+
+  return result
 
 max_product = 0
 
-MATRIX.each_with_index do |row, x|
-  row.each_with_index do |column, y|
-    products = []
-  
-    products << up(x, y).inject(:*) if up?(x)
-    products << down(x, y).inject(:*) if down?(x)
-    products << left(x, y).inject(:*) if left?(y)
-    products << right(x, y).inject(:*) if right?(y)
+for x in range(20):
+    for y in range(20):
+      products = []
+      
+      if is_up(x): products.append(prod(up(x, y)))
+      if is_down(x): products.append(prod(down(x, y)))
+      if is_left(x): products.append(prod(left(x, y)))
+      if is_right(x): products.append(prod(right(x, y)))
 
-    products << up_left(x, y).inject(:*) if up?(x) && left?(y)
-    products << up_right(x, y).inject(:*) if up?(x) && right?(y)
-    products << down_left(x, y).inject(:*) if down?(x) && left?(y)
-    products << down_right(x, y).inject(:*) if down?(x) && right?(y)
+      if is_up(x) and is_left(y): products.append(prod(up_left(x, y)))
+      if is_up(x) and is_right(y): products.append(prod(up_right(x, y)))
+      if is_down(x) and is_left(y): products.append(prod(down_left(x, y)))
+      if is_down(x) and is_right(y): products.append(prod(down_right(x, y)))
 
-    max_product = products.max if products.max > max_product
-  end
-end
+      if max(products) > max_product: max_product = max(products)
 
-p max_product
+print(max_product)
 
 # Time: 0m2.573s
