@@ -32,8 +32,3 @@ Just having fun with [ProjectEuler](https://projecteuler.net)
 | 23       |            |            |
 | 24       |            |            |
 | 25       |            |            |
-| 26       |            |            |
-| 27       |            |            |
-| 28       |            |            |
-| 29       |            |            |
-| 30       |            |            |
