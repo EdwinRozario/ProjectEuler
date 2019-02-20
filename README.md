@@ -1,6 +1,6 @@
 # Project Euler
 
-Just having fun with Euler
+Just having fun with [ProjectEuler](https://projecteuler.net)
 
 
 ## Execution time Comparison
