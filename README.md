@@ -19,8 +19,8 @@ Just having fun with [ProjectEuler](https://projecteuler.net)
 | 10       | 0m14.369s  |            |
 | 11       | 0m2.573s   |            |
 | 12       |            |            |
-| 13       |            |            |
-| 14       |            |            |
+| 13       | 0m0.115s   |            |
+| 14       | 0m10.403s  |            |
 | 15       |            |            |
 | 16       |            |            |
 | 17       |            |            |
