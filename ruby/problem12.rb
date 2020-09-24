@@ -18,3 +18,22 @@
 
 # SOLUTION
 # start with a number thats made up of the sum of 500 numbers
+
+range = 10000
+divisors = []
+
+while divisors.count < 500
+	sum = (0..range).sum
+
+	divisors = (1..sum/2+1).select { |number| sum % number == 0 }
+
+	range += 1
+
+	p "#{range}: #{divisors.count}"
+end
+
+# p (0..range).to_a
+
+p divisors
+p range
+p sum
